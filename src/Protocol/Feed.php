@@ -495,7 +495,7 @@ class Feed
 					}
 				}
 
-				$data = PageInfo::queryUrl($item["plink"], false, $preview, ($contact["fetch_further_information"] == 2), $contact["ffi_keyword_denylist"] ?? '');
+				$data = PageInfo::queryUrl($item["plink"], false, $preview, ($contact["fetch_further_information"] == 2), $contact["ffi_keyword_blacklist"] ?? '');
 
 				if (!empty($data)) {
 					// Take the data that was provided by the feed if the query is empty
@@ -514,7 +514,7 @@ class Feed
 					// We always strip the title since it will be added in the page information
 					$item["title"] = "";
 					$item["body"] = $item["body"] . "\n" . PageInfo::getFooterFromData($data, false);
-					$taglist = $contact["fetch_further_information"] == 2 ? PageInfo::getTagsFromUrl($item["plink"], $preview, $contact["ffi_keyword_denylist"] ?? '') : [];
+					$taglist = $contact["fetch_further_information"] == 2 ? PageInfo::getTagsFromUrl($item["plink"], $preview, $contact["ffi_keyword_blacklist"] ?? '') : [];
 					$item["object-type"] = Activity\ObjectType::BOOKMARK;
 					$attachments = [];
 				}
@@ -525,7 +525,7 @@ class Feed
 
 				if (!empty($contact["fetch_further_information"]) && ($contact["fetch_further_information"] == 3)) {
 					if (empty($taglist)) {
-						$taglist = PageInfo::getTagsFromUrl($item["plink"], $preview, $contact["ffi_keyword_denylist"] ?? '');
+						$taglist = PageInfo::getTagsFromUrl($item["plink"], $preview, $contact["ffi_keyword_blacklist"] ?? '');
 					}
 					$item["body"] .= "\n" . self::tagToString($taglist);
 				} else {
