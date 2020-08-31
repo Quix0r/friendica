@@ -1622,7 +1622,7 @@ return [
 			"bd"                        => ["contact", "bd"],
 			"notify_new_posts"          => ["contact", "notify_new_posts"],
 			"fetch_further_information" => ["contact", "fetch_further_information"],
-			"ffi_keyword_denylist"      => ["contact", "ffi_keyword_denylist"],
+			"ffi_keyword_blacklist"     => ["contact", "ffi_keyword_blacklist"],
 			"parent-uid"                => ["user", "parent-uid"],
 			"guid"                      => ["user", "guid"],
 			"nickname"                  => ["user", "nickname"], /// @todo Replaces all uses of "nickname" with "nick"
@@ -1825,7 +1825,7 @@ return [
 			"deleted"                    => ["ucontact", "deleted"],
 			"notify_new_posts"           => ["ucontact", "notify_new_posts"],
 			"fetch_further_information"  => ["ucontact", "fetch_further_information"],
-			"ffi_keyword_denylist"       => ["ucontact", "ffi_keyword_denylist"],
+			"ffi_keyword_blacklist"      => ["ucontact", "ffi_keyword_blacklist"],
 			"rating"                     => ["ucontact", "rating"],
 			"readonly"                   => ["ucontact", "readonly"],
 			"blocked"                    => ["ucontact", "blocked"],

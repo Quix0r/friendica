@@ -67,7 +67,7 @@ contact table
 | info                      |                                                                                                                | mediumtext         | YES  |     | NULL                |                |
 | notify_new_posts          |                                                                                                                | boolean            | NO   |     | 0                   |                |
 | fetch_further_information |                                                                                                                | tinyint unsigned   | NO   |     | 0                   |                |
-| ffi_keyword_denylist      |                                                                                                                | text               | YES  |     | NULL                |                |
+| ffi_keyword_blacklist      |                                                                                                                | text               | YES  |     | NULL                |                |
 | photo                     | Link to the profile photo of the contact                                                                       | varbinary(383)     | YES  |     |                     |                |
 | thumb                     | Link to the profile photo (thumb size)                                                                         | varbinary(383)     | YES  |     |                     |                |
 | micro                     | Link to the profile photo (micro size)                                                                         | varbinary(383)     | YES  |     |                     |                |

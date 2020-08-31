@@ -85,7 +85,7 @@ class LocalRelationship extends BaseRepository
 			'notify_new_posts'          => $localRelationship->notifyNewPosts,
 			'remote_self'               => $localRelationship->remoteSelf,
 			'fetch_further_information' => $localRelationship->fetchFurtherInformation,
-			'ffi_keyword_denylist'      => $localRelationship->ffiKeywordDenylist,
+			'ffi_keyword_blacklist'     => $localRelationship->ffiKeywordblacklist,
 			'hub-verify'                => $localRelationship->hubVerify,
 			'protocol'                  => $localRelationship->protocol,
 			'rating'                    => $localRelationship->rating,

@@ -24,7 +24,7 @@ use Friendica\Model\Contact;
  * @property-read bool   $notifyNewPosts
  * @property-read int    $remoteSelf
  * @property-read int    $fetchFurtherInformation
- * @property-read string $ffiKeywordDenylist
+ * @property-read string $ffiKeywordblacklist
  * @property-read string $hubVerify
  * @property-read string $protocol
  * @property-read int    $rating
@@ -67,7 +67,7 @@ class LocalRelationship extends \Friendica\BaseEntity
 	/** @var int One of FFI_* */
 	protected $fetchFurtherInformation;
 	/** @var string */
-	protected $ffiKeywordDenylist;
+	protected $ffiKeywordblacklist;
 	/** @var string */
 	protected $hubVerify;
 	/** @var string */
@@ -77,7 +77,7 @@ class LocalRelationship extends \Friendica\BaseEntity
 	/** @var int */
 	protected $priority;
 
-	public function __construct(int $userId, int $contactId, bool $blocked = false, bool $ignored = false, bool $collapsed = false, bool $hidden = false, bool $pending = false, int $rel = Contact::NOTHING, string $info = '', bool $notifyNewPosts = false, int $remoteSelf = self::MIRROR_DEACTIVATED, int $fetchFurtherInformation = self::FFI_NONE, string $ffiKeywordDenylist = '', string $hubVerify = '', string $protocol = Protocol::PHANTOM, ?int $rating = null, ?int $priority = null)
+	public function __construct(int $userId, int $contactId, bool $blocked = false, bool $ignored = false, bool $collapsed = false, bool $hidden = false, bool $pending = false, int $rel = Contact::NOTHING, string $info = '', bool $notifyNewPosts = false, int $remoteSelf = self::MIRROR_DEACTIVATED, int $fetchFurtherInformation = self::FFI_NONE, string $ffiKeywordblacklist = '', string $hubVerify = '', string $protocol = Protocol::PHANTOM, ?int $rating = null, ?int $priority = null)
 	{
 		$this->userId                  = $userId;
 		$this->contactId               = $contactId;
@@ -91,7 +91,7 @@ class LocalRelationship extends \Friendica\BaseEntity
 		$this->notifyNewPosts          = $notifyNewPosts;
 		$this->remoteSelf              = $remoteSelf;
 		$this->fetchFurtherInformation = $fetchFurtherInformation;
-		$this->ffiKeywordDenylist      = $ffiKeywordDenylist;
+		$this->ffiKeywordblacklist      = $ffiKeywordblacklist;
 		$this->hubVerify               = $hubVerify;
 		$this->protocol                = $protocol;
 		$this->rating                  = $rating;
