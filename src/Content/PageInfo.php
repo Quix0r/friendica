@@ -86,13 +86,13 @@ class PageInfo
 	 * @param bool $no_photos
 	 * @param string $photo
 	 * @param bool $keywords
-	 * @param string $keyword_denylist
+	 * @param string $keyword_blacklist
 	 * @return string
 	 * @throws HTTPException\InternalServerErrorException
 	 */
-	public static function getFooterFromUrl(string $url, bool $no_photos = false, string $photo = '', bool $keywords = false, string $keyword_denylist = '')
+	public static function getFooterFromUrl(string $url, bool $no_photos = false, string $photo = '', bool $keywords = false, string $keyword_blacklist = '')
 	{
-		$data = self::queryUrl($url, $photo, $keywords, $keyword_denylist);
+		$data = self::queryUrl($url, $photo, $keywords, $keyword_blacklist);
 
 		return self::getFooterFromData($data, $no_photos);
 	}
@@ -181,11 +181,11 @@ class PageInfo
 	 * @param string  $url
 	 * @param string $photo
 	 * @param bool $keywords
-	 * @param string $keyword_denylist
+	 * @param string $keyword_blacklist
 	 * @return array|bool
 	 * @throws HTTPException\InternalServerErrorException
 	 */
-	public static function queryUrl(string $url, string $photo = '', bool $keywords = false, string $keyword_denylist = '')
+	public static function queryUrl(string $url, string $photo = '', bool $keywords = false, string $keyword_blacklist = '')
 	{
 		$data = ParseUrl::getSiteinfoCached($url);
 
@@ -195,8 +195,8 @@ class PageInfo
 
 		if (!$keywords) {
 			unset($data['keywords']);
-		} elseif ($keyword_denylist && !empty($data['keywords'])) {
-			$list = explode(', ', $keyword_denylist);
+		} elseif ($keyword_blacklist && !empty($data['keywords'])) {
+			$list = explode(', ', $keyword_blacklist);
 
 			foreach ($list as $keyword) {
 				$keyword = trim($keyword);
@@ -216,13 +216,13 @@ class PageInfo
 	/**
 	 * @param string $url
 	 * @param string $photo
-	 * @param string $keyword_denylist
+	 * @param string $keyword_blacklist
 	 * @return array
 	 * @throws HTTPException\InternalServerErrorException
 	 */
-	public static function getTagsFromUrl(string $url, string $photo = '', string $keyword_denylist = '')
+	public static function getTagsFromUrl(string $url, string $photo = '', string $keyword_blacklist = '')
 	{
-		$data = self::queryUrl($url, $photo, true, $keyword_denylist);
+		$data = self::queryUrl($url, $photo, true, $keyword_blacklist);
 
 		if (empty($data['keywords'])) {
 			return [];
