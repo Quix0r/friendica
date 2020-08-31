@@ -166,7 +166,7 @@ return [
 		'db_log_index_watch' => '',
 
 		// db_log_index_blacklist (Comma-separated list)
-		// Deny list of indexes that shouldn't be watched.
+		// Blacklist of indexes that shouldn't be watched.
 		'db_log_index_blacklist' => '',
 
 		// db_loglimit (Integer)

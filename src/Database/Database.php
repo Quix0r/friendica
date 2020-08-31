@@ -315,7 +315,7 @@ class Database
 		}
 
 		$watchlist = explode(',', $this->configCache->get('system', 'db_log_index_watch'));
-		$denylist = explode(',', $this->configCache->get('system', 'db_log_index_denylist'));
+		$blacklist = explode(',', $this->configCache->get('system', 'db_log_index_blacklist'));
 
 		while ($row = $this->fetch($r)) {
 			if ((intval($this->configCache->get('system', 'db_loglimit_index')) > 0)) {
@@ -329,7 +329,7 @@ class Database
 				$log = true;
 			}
 
-			if (in_array($row['key'], $denylist) || ($row['key'] == "")) {
+			if (in_array($row['key'], $blacklist) || ($row['key'] == "")) {
 				$log = false;
 			}
 
