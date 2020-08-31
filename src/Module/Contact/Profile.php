@@ -104,8 +104,8 @@ class Profile extends BaseModule
 			$fields['remote_self'] = intval($request['remote_self']);
 		}
 
-		if (isset($request['ffi_keyword_denylist'])) {
-			$fields['ffi_keyword_denylist'] = $request['ffi_keyword_denylist'];
+		if (isset($request['ffi_keyword_blacklist'])) {
+			$fields['ffi_keyword_blacklist'] = $request['ffi_keyword_blacklist'];
 		}
 
 		if (isset($request['poll'])) {
@@ -414,7 +414,7 @@ class Profile extends BaseModule
 			'$hidden'                    => ['hidden', $this->t('Hide this contact from others'), $localRelationship->hidden, $this->t('Replies/likes to your public posts <strong>may</strong> still be visible')],
 			'$notify_new_posts'          => ['notify_new_posts', $this->t('Notification for new posts'), ($localRelationship->notifyNewPosts), $this->t('Send a notification of every new post of this contact')],
 			'$fetch_further_information' => $fetch_further_information,
-			'$ffi_keyword_denylist'      => ['ffi_keyword_denylist', $this->t('Keyword Deny List'), $localRelationship->ffiKeywordDenylist, $this->t('Comma separated list of keywords that should not be converted to hashtags, when "Fetch information and keywords" is selected')],
+			'$ffi_keyword_blacklist'     => ['ffi_keyword_blacklist', $this->t('Keyword Deny List'), $localRelationship->ffiKeywordblacklist, $this->t('Comma separated list of keywords that should not be converted to hashtags, when "Fetch information and keywords" is selected')],
 			'$photo'                     => ContactModel::getPhoto($contact),
 			'$name'                      => $contact['name'],
 			'$sparkle'                   => $sparkle,

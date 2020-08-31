@@ -80,7 +80,7 @@
 
 			{{if $fetch_further_information}}
 				{{include file="field_select.tpl" field=$fetch_further_information}}
-				{{if $fetch_further_information.2 == 2 || $fetch_further_information.2 == 3}} {{include file="field_textarea.tpl" field=$ffi_keyword_denylist}} {{/if}}
+				{{if $fetch_further_information.2 == 2 || $fetch_further_information.2 == 3}} {{include file="field_textarea.tpl" field=$ffi_keyword_blacklist}} {{/if}}
 			{{/if}}
 
 			{{if $allow_remote_self}}

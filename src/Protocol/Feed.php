@@ -668,7 +668,7 @@ class Feed
 					$item['plink'],
 					'',
 					$fetch_further_information == LocalRelationship::FFI_BOTH,
-					$contact['ffi_keyword_denylist'] ?? '',
+					$contact['ffi_keyword_blacklist'] ?? '',
 				);
 
 				if (!empty($data)) {
@@ -688,14 +688,14 @@ class Feed
 					// We always strip the title since it will be added in the page information
 					$item['title']       = '';
 					$item['body']        = $item['body'] . "\n" . PageInfo::getFooterFromData($data, false);
-					$taglist             = $fetch_further_information == LocalRelationship::FFI_BOTH ? PageInfo::getTagsFromUrl($item['plink'], $preview, $contact['ffi_keyword_denylist'] ?? '') : [];
+					$taglist             = $fetch_further_information == LocalRelationship::FFI_BOTH ? PageInfo::getTagsFromUrl($item['plink'], $preview, $contact['ffi_keyword_blacklist'] ?? '') : [];
 					$item['object-type'] = Activity\ObjectType::BOOKMARK;
 					$attachments         = [];
 				}
 			} else {
 				if ($fetch_further_information == LocalRelationship::FFI_KEYWORD) {
 					if (empty($taglist)) {
-						$taglist = PageInfo::getTagsFromUrl($item['plink'], $preview, $contact['ffi_keyword_denylist'] ?? '');
+						$taglist = PageInfo::getTagsFromUrl($item['plink'], $preview, $contact['ffi_keyword_blacklist'] ?? '');
 					}
 					$item['body'] .= "\n" . self::tagToString($taglist);
 				} else {

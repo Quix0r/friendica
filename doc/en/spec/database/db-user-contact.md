@@ -22,7 +22,7 @@ User specific public contact data
 | notify_new_posts          |                                                                            | boolean            | YES  |     | NULL    |       |
 | remote_self               | 0 => No mirroring, 1-2 => Mirror as own post, 3 => Mirror as reshare       | tinyint unsigned   | YES  |     | NULL    |       |
 | fetch_further_information | 0 => None, 1 => Fetch information, 3 => Fetch keywords, 2 => Fetch both    | tinyint unsigned   | YES  |     | NULL    |       |
-| ffi_keyword_denylist      |                                                                            | text               | YES  |     | NULL    |       |
+| ffi_keyword_blacklist     |                                                                            | text               | YES  |     | NULL    |       |
 | hub-verify                |                                                                            | varbinary(383)     | YES  |     | NULL    |       |
 | protocol                  | Protocol of the contact                                                    | char(4)            | YES  |     | NULL    |       |
 | rating                    | Automatically detected feed poll frequency                                 | tinyint            | YES  |     | NULL    |       |

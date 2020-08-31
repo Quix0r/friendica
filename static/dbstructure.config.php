@@ -239,7 +239,7 @@ return [
 			"info"                      => ["type" => "mediumtext", "comment" => ""],
 			"notify_new_posts"          => ["type" => "boolean", "not null" => "1", "default" => "0", "comment" => ""],
 			"fetch_further_information" => ["type" => "tinyint unsigned", "not null" => "1", "default" => "0", "comment" => ""],
-			"ffi_keyword_denylist"      => ["type" => "text", "comment" => ""],
+			"ffi_keyword_blacklist"     => ["type" => "text", "comment" => ""],
 			// Deprecated, but still in use
 			"photo"       => ["type" => "varbinary(383)", "default" => "", "comment" => "Link to the profile photo of the contact"],
 			"thumb"       => ["type" => "varbinary(383)", "default" => "", "comment" => "Link to the profile photo (thumb size)"],
@@ -2075,7 +2075,7 @@ return [
 			"notify_new_posts"          => ["type" => "boolean", "comment" => ""],
 			"remote_self"               => ["type" => "tinyint unsigned", "comment" => "0 => No mirroring, 1-2 => Mirror as own post, 3 => Mirror as reshare"],
 			"fetch_further_information" => ["type" => "tinyint unsigned", "comment" => "0 => None, 1 => Fetch information, 3 => Fetch keywords, 2 => Fetch both"],
-			"ffi_keyword_denylist"      => ["type" => "text", "comment" => ""],
+			"ffi_keyword_blacklist"     => ["type" => "text", "comment" => ""],
 			"hub-verify"                => ["type" => "varbinary(383)", "comment" => ""],
 			"protocol"                  => ["type" => "char(4)", "comment" => "Protocol of the contact"],
 			"rating"                    => ["type" => "tinyint", "comment" => "Automatically detected feed poll frequency"],
