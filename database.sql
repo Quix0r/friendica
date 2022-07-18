@@ -509,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `attach` (
 -- TABLE cache
 --
 CREATE TABLE IF NOT EXISTS `cache` (
-	`k` varbinary(255) NOT NULL COMMENT 'cache key',
+	`k` varchar(255) NOT NULL COMMENT 'cache key',
 	`v` mediumtext COMMENT 'cached serialized value',
 	`expires` datetime NOT NULL DEFAULT '0001-01-01 00:00:00' COMMENT 'datetime of cache expiration',
 	`updated` datetime NOT NULL DEFAULT '0001-01-01 00:00:00' COMMENT 'datetime of cache insertion',
