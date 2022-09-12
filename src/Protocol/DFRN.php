@@ -1598,6 +1598,7 @@ class DFRN
 				|| ($item['verb'] == Activity::ANNOUNCE)
 			) {
 				$item['gravity'] = Item::GRAVITY_ACTIVITY;
+
 				// only one like or dislike per person
 				// split into two queries for performance issues
 				$condition = [

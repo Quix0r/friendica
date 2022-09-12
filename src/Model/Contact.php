@@ -1662,7 +1662,7 @@ class Contact
 			$condition = ["`uid` = ?", $uid];
 		}
 
-		$contact_field = ((($contact["contact-type"] == self::TYPE_COMMUNITY) || ($contact['network'] == Protocol::MAIL)) ? 'owner-id' : 'author-id');
+		$contact_field = ((($contact['contact-type'] == self::TYPE_COMMUNITY) || ($contact['network'] == Protocol::MAIL)) ? 'owner-id' : 'author-id');
 
 		$condition = DBA::mergeConditions($condition, ["`$contact_field` = ? AND `gravity` IN (?, ?)", $cid, Item::GRAVITY_PARENT, Item::GRAVITY_COMMENT]);
 
