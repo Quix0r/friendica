@@ -501,16 +501,17 @@ class System
 	 *
 	 * @param string $url  The new Location to redirect
 	 * @param int    $code The redirection code, which is used (Default is 302)
+	 * @param bool   $proxy_headers Whether proxy-related headers are being sent
 	 *
+	 * @return void
 	 * @throws FoundException
 	 * @throws MovedPermanentlyException
 	 * @throws TemporaryRedirectException
-	 *
 	 * @throws \Friendica\Network\HTTPException\InternalServerErrorException
 	 *
 	 * @return never
 	 */
-	public static function externalRedirect($url, $code = 302)
+	public static function externalRedirect(string $url, int $code = 302, bool $proxy_headers = false)
 	{
 		// Use a regex to detect the presence of a URI scheme, because PHP's
 		// parse_url() returns false/null for some valid custom-scheme URIs such
@@ -519,6 +520,12 @@ class System
 		if (!preg_match('/^[a-zA-Z][a-zA-Z0-9+\-.]*:/', $url)) {
 			DI::logger()->warning('No fully qualified URL provided', ['url' => $url]);
 			DI::baseUrl()->redirect($url);
+		}
+
+		if ($proxy_headers) {
+			// Send Pragma/Cache-Control headers
+			header('Pragma: no-cache');
+			header('Cache-Control: no-cache, must-revalidate');
 		}
 
 		header("Location: $url");
