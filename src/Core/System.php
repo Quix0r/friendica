@@ -501,7 +501,7 @@ class System
 	 *
 	 * @param string $url  The new Location to redirect
 	 * @param int    $code The redirection code, which is used (Default is 302)
-	 * @param bool   $proxy_headers Whether proxy-related headers are being sent
+	 * @param bool   $includeProxyHeaders Whether proxy-related headers are being sent
 	 *
 	 * @return void
 	 * @throws FoundException
@@ -511,7 +511,7 @@ class System
 	 *
 	 * @return never
 	 */
-	public static function externalRedirect(string $url, int $code = 302, bool $proxy_headers = false)
+	public static function externalRedirect(string $url, int $code = 302, bool $includeProxyHeaders = false)
 	{
 		// Use a regex to detect the presence of a URI scheme, because PHP's
 		// parse_url() returns false/null for some valid custom-scheme URIs such
@@ -522,7 +522,7 @@ class System
 			DI::baseUrl()->redirect($url);
 		}
 
-		if ($proxy_headers) {
+		if ($includeProxyHeaders) {
 			// Send Pragma/Cache-Control headers
 			header('Pragma: no-cache');
 			header('Cache-Control: no-cache, must-revalidate');
