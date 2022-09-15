@@ -169,7 +169,6 @@ class GServer
 	 * @param string $pattern
 	 *
 	 * @return array
-	 *
 	 * @throws Exception
 	 */
 	public static function listByDomainPattern(string $pattern): array
@@ -294,7 +293,6 @@ class GServer
 	 * @param bool $undetected
 	 *
 	 * @return string
-	 *
 	 * @throws Exception
 	 */
 	public static function getNextUpdateDate(bool $success, string $created = '', string $last_contact = '', bool $undetected = false): string
@@ -957,7 +955,6 @@ class GServer
 	 * @param string $server_url address of the server
 	 *
 	 * @return void
-	 *
 	 * @throws \Friendica\Network\HTTPException\InternalServerErrorException
 	 */
 	private static function discoverRelay(string $server_url)
@@ -1457,10 +1454,9 @@ class GServer
 	/**
 	 * Parses NodeInfo2
 	 *
-	 * @see https://github.com/jaywink/nodeinfo2
-	 *
+	 * @param ICanHandleHttpResponses $httpResult
 	 * @return array Server data
-	 *
+	 * @see https://github.com/jaywink/nodeinfo2/blob/master/PROTOCOL.md
 	 * @throws \Friendica\Network\HTTPException\InternalServerErrorException
 	 */
 	private static function parseNodeinfo2(ICanHandleHttpResponses $httpResult): array
