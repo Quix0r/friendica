@@ -63,7 +63,7 @@ class Invite extends BaseModule
 		foreach ($recipients as $recipient) {
 			$recipient = trim($recipient);
 
-			if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+			if (DI::config()->get('system', 'only_valid_email_addresses', true) && !filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
 				DI::sysmsg()->addNotice(DI::l10n()->t('%s : Not a valid email address.', $recipient));
 				continue;
 			}
