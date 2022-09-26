@@ -694,6 +694,13 @@ return [
 		// xrd_timeout (Integer)
 		// Timeout in seconds for fetching the XRD links and other requests with an expected shorter timeout
 		'xrd_timeout' => 20,
+
+		// only_valid_email_addresses (Boolean)
+		// WARNING: You normally want to only accept valid email addreses. Under
+		// rare conditions this however can be a hinderence, e.g. on your LAN
+		// where you might have email addresses like user@domain.local which are
+		// surely not valid but still you need to signup to your testing instance
+		'only_valid_email_addresses' => true,
 	],
 	'performance' => [
 		// max_response_data_size (Integer)

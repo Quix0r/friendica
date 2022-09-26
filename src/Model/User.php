@@ -1297,7 +1297,7 @@ class User
 			throw new Exception(DI::l10n()->t('Your email domain is not among those allowed on this site.'));
 		}
 
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !Network::isEmailDomainValid($email)) {
+		if (DI::config()->get('system', 'only_valid_email_addresses', true) && (!filter_var($email, FILTER_VALIDATE_EMAIL) || !Network::isEmailDomainValid($email))) {
 			throw new Exception(DI::l10n()->t('Not a valid email address.'));
 		}
 		if (self::isNicknameBlocked($nickname)) {
