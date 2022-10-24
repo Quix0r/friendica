@@ -305,7 +305,7 @@ class Database
 		return $data[0]['db'];
 	}
 
-	public function escape($str)
+	public function escape(string $str): string
 	{
 		if ($this->connected) {
 			switch ($this->driver) {
