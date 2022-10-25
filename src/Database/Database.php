@@ -1516,7 +1516,7 @@ class Database
 	 * Example:
 	 * $table = "post";
 	 *
-	 * $condition = ["uid" => 1, "network" => 'dspr'];
+	 * $condition = ['uid' => 1, 'network' => 'dspr'];
 	 * or:
 	 * $condition = ["`uid` = ? AND `network` IN (?, ?)", 1, 'dfrn', 'dspr'];
 	 *
