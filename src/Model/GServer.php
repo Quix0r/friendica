@@ -834,10 +834,6 @@ class GServer
 			$serverdata['registered-users'] = 0;
 		}
 
-		$serverdata['next_contact'] = self::getNextUpdateDate(true, '', '', in_array($serverdata['network'], [Protocol::PHANTOM, Protocol::FEED]));
-		$serverdata['last_contact'] = DateTimeFormat::utcNow();
-		$serverdata['failed']       = false;
-		$serverdata['blocked']      = false;
 
 		$id = 0;
 
