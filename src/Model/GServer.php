@@ -490,6 +490,14 @@ class GServer
 			return;
 		}
 
+		if (Network::isUrlBlocked($url)) {
+			Logger::info('Server domain is blocked', ['url' => $url]);
+			return;
+		} elseif (Network::isUrlBlocked($nurl)) {
+			Logger::info('Server domain is blocked', ['nurl' => $nurl]);
+			return;
+		}
+
 		self::insert(['url' => $url, 'nurl' => $nurl,
 			'network'          => Protocol::PHANTOM, 'created' => DateTimeFormat::utcNow(),
 			'failed'           => true, 'last_failure' => DateTimeFormat::utcNow()]);
@@ -579,6 +587,9 @@ class GServer
 			if (!self::getID($url, true) && !Network::isUriBlocked(new Uri($url))) {
 				self::detect($url, $network, $only_nodeinfo);
 			}
+			return false;
+		} elseif (Network::isUrlBlocked($url)) {
+			Logger::info('Server domain is blocked', ['url' => $url]);
 			return false;
 		}
 
