@@ -50,5 +50,27 @@ body a.active,
 }
 
 .btn-info {
-	background-image: linear-gradient(to bottom, #fdfdfd 0, black 100%);
+	background-image: linear-gradient(to bottom, #fdfdfd 0, black 100%) !important;
+}
+
+#topbar-first #nav-notifications-menu li.notification-unseen {
+	background-color: #e0e0e0 !important;
+}
+
+.nav-pills .dropdown-menu li > a,
+.nav-tabs .dropdown-menu li > a,
+.account .dropdown-menu li > a,
+.contact-photo-wrapper .dropdown-menu li > a {
+	border-left: 3px solid #a08f70 !important;
+}
+
+.nav-pills .dropdown-menu li > a:hover,
+.nav-tabs .dropdown-menu li > a:hover,
+.account .dropdown-menu li > a:hover,
+.contact-photo-wrapper .dropdown-menu li > a:hover,
+.nav-pills .dropdown-menu li.selected a,
+.nav-tabs .dropdown-menu li.selected a,
+.account .dropdown-menu li.selected a,
+.contact-photo-wrapper .dropdown-menu li.selected a {
+	background: #666666 !important;
 }
