@@ -23,12 +23,10 @@ nav.navbar {
 .nav-pills .dropdown-menu,
 .nav-tabs .dropdown-menu,
 .account .dropdown-menu,
-.contact-photo-wrapper .dropdown-menu {
+.contact-photo-wrapper .dropdown-menu,
+.btn.btn-primary,
+.btn-info {
 	background-color: black !important;
-}
-
-.btn.btn-primary {
-	background: black !important;
 }
 
 aside .widget li:hover,
@@ -49,7 +47,9 @@ body a:active,
 .btn-link:active,
 body a.active,
 .btn-link.active {
-	color: #59d6e4;
 	outline-color: rgb(253, 241, 0) !important;
-	text-decoration: none;
+}
+
+.btn-info {
+	background-image: linear-gradient(to bottom, #fdfdfd 0, black 100%);
 }

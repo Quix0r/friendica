@@ -8,7 +8,7 @@
 $nav_bg = "#708fa0";
 $nav_icon_color = "#fff";
 $background_color = "#ededed";
-$link_color = "#fdf100";
+$link_color = "#d4333d";
 $contentbg_transp = 100;
 $nav_icon_hover_color = "black";
 $btn_primary_hover_color = "black";
