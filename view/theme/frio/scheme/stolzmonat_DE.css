@@ -18,6 +18,7 @@ nav.navbar {
 #topbar-first .nav > .open > a,
 #topbar-first .nav > .open > button {
 	background-color: black !important;
+	border-radius: 5px !important;
 }
 
 .nav-pills .dropdown-menu,
@@ -27,6 +28,7 @@ nav.navbar {
 .btn.btn-primary,
 .btn-info {
 	background-color: black !important;
+	border-radius: 5px !important;
 }
 
 aside .widget li:hover,
