@@ -154,6 +154,33 @@ class Network extends Timeline
 		$this->userDefinedChannel   = $userDefinedChannel;
 	}
 
+	/** @var ICanCache */
+	protected $cache;
+	/** @var IManageConfigValues The config */
+	protected $config;
+	/** @var SystemMessages */
+	protected $systemMessages;
+	/** @var App\Page */
+	protected $page;
+	/** @var Conversation */
+	protected $conversation;
+	/** @var IManagePersonalConfigValues */
+	protected $pConfig;
+	/** @var Database */
+	protected $database;
+	/** @var TimelineFactory */
+	protected $timeline;
+
+	public function __construct(TimelineFactory $timeline, SystemMessages $systemMessages, Mode $mode, Conversation $conversation, App\Page $page, IHandleUserSessions $session, Database $database, IManagePersonalConfigValues $pConfig, IManageConfigValues $config, ICanCache $cache, L10n $l10n, App\BaseURL $baseUrl, App\Arguments $args, LoggerInterface $logger, Profiler $profiler, Response $response, array $server, array $parameters = [])
+	{
+		parent::__construct($mode, $session, $database, $pConfig, $config, $cache, $l10n, $baseUrl, $args, $logger, $profiler, $response, $server, $parameters);
+
+		$this->timeline       = $timeline;
+		$this->systemMessages = $systemMessages;
+		$this->conversation   = $conversation;
+		$this->page           = $page;
+	}
+
 	protected function content(array $request = []): string
 	{
 		if (!$this->session->getLocalUserId()) {
