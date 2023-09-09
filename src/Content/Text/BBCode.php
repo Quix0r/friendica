@@ -2184,7 +2184,7 @@ class BBCode
 			(string) $text,
 		);
 
-		// sanitize href attributes (only allowlisted protocols URLs)
+		// sanitize href attributes (only whitelisted protocols URLs)
 		// default value for backward compatibility
 		$allowed_link_protocols = DI::config()->get('system', 'allowed_link_protocols', []);
 
