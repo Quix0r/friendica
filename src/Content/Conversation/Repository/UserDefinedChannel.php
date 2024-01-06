@@ -195,6 +195,8 @@ class UserDefinedChannel extends BaseRepository
 	 *
 	 * @param string $haystack
 	 * @param string $language
+	 * @param array  $tags
+	 * @param int    $media_type
 	 * @return boolean
 	 * @throws \Exception
 	 */
@@ -212,6 +214,59 @@ class UserDefinedChannel extends BaseRepository
 		foreach ($this->select($condition) as $channel) {
 			if (in_array($language, $channel->languages)) {
 				return true;
+			}
+			if (!empty($channel->languages) && !in_array($channel->uid, $uids)) {
+				if (!in_array($language, $channel->languages)) {
+					continue;
+				}
+			} elseif (!in_array($language, User::getWantedLanguages($channel->uid))) {
+				continue;
+			}
+			if (!empty($channel->includeTags) && !in_array($channel->uid, $uids)) {
+				if (empty($tags)) {
+					continue;
+				}
+				$match = false;
+				foreach (explode(',', $channel->includeTags) as $tag) {
+					if (in_array($tag, $tags)) {
+						$match = true;
+						break;
+					}
+				}
+				if (!$match) {
+					continue;
+				}
+			}
+			if (!empty($tags) && !empty($channel->excludeTags) && !in_array($channel->uid, $uids)) {
+				$match = false;
+				foreach (explode(',', $channel->excludeTags) as $tag) {
+					if (in_array($tag, $tags)) {
+						$match = true;
+						break;
+					}
+				}
+				if ($match) {
+					continue;
+				}
+			}
+			if (!empty($channel->mediaType) && !in_array($channel->uid, $uids)) {
+				if (!($channel->mediaType & $media_type)) {
+					continue;
+				}
+			}
+			if (!empty($channel->fullTextSearch) && !in_array($channel->uid, $uids)) {
+				$channelsearchtext = $channel->fullTextSearch;
+				foreach (Engagement::KEYWORDS as $keyword) {
+					$channelsearchtext = preg_replace('~(' . $keyword . ':.[\w@\.-]+)~', '"$1"', $channelsearchtext);
+				}
+				if (!$this->db->exists('check-full-text-search', ["`pid` = ? AND MATCH (`searchtext`) AGAINST (? IN BOOLEAN MODE)", getmypid(), $channelsearchtext])) {
+					continue;
+				}
+			}
+			$uids[] = $channel->uid;
+			$this->logger->debug('Matching channel found.', ['uid' => $channel->uid, 'label' => $channel->label, 'language' => $language, 'tags' => $tags, 'media_type' => $media_type, 'searchtext' => $searchtext]);
+			if (!$relayMode) {
+				return $uids;
 			}
 		}
 
