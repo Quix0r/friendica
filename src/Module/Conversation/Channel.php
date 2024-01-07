@@ -92,7 +92,7 @@ class Channel extends Timeline
 
 		$this->parseRequest($request);
 
-		$t = Renderer::getMarkupTemplate("community.tpl");
+		$t = Renderer::getMarkupTemplate('community.tpl');
 		$o = Renderer::replaceMacros($t, [
 			'$content' => '',
 			'$header'  => '',
