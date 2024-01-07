@@ -3593,7 +3593,12 @@ msgstr ""
 
 #: src/Model/Item.php:3079
 #, php-format
-msgid "Content from %s is collapsed"
+msgid "%s is blocked"
+msgstr ""
+
+#: src/Model/Item.php:3386
+#, php-format
+msgid "%s is ignored"
 msgstr ""
 
 #: src/Model/Item.php:3083
