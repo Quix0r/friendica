@@ -1904,6 +1904,194 @@ class Item
 	}
 
 	/**
+	 * Get a language array from a given text
+	 *
+	 * @param string  $body
+	 * @param integer $count
+	 * @param integer $uri_id
+	 * @param integer $author_id
+	 * @param array   $default
+	 * @return array
+	 */
+	public static function getLanguageArray(string $body, int $count, int $uri_id = 0, int $author_id = 0, array $default = []): array
+	{
+		$default = $default ?: [L10n::UNDETERMINED_LANGUAGE => 1];
+
+		$searchtext = BBCode::toSearchText($body, $uri_id);
+
+		if ((count(explode(' ', $searchtext)) < 10) && (mb_strlen($searchtext) < 30) && $author_id) {
+			$author = Contact::selectFirst(['about'], ['id' => $author_id]);
+			if (!empty($author['about'])) {
+				$about = BBCode::toSearchText($author['about'], 0);
+				DI::logger()->debug('About field added', ['author' => $author_id, 'body' => $searchtext, 'about' => $about]);
+				$searchtext .= ' ' . $about;
+			}
+		}
+
+		if (empty($searchtext)) {
+			return $default;
+		}
+
+		$ld = new Language(DI::l10n()->getDetectableLanguages());
+
+		$result = [];
+
+		$eventDispatcher = DI::eventDispatcher();
+
+		foreach (self::splitByBlocks($searchtext) as $block) {
+			$languages = $ld->detect($block)->close() ?: [];
+
+			$hook_data = [
+				'text'      => $block,
+				'detected'  => $languages,
+				'uri-id'    => $uri_id,
+				'author-id' => $author_id,
+			];
+
+			$hook_data = $eventDispatcher->dispatch(
+				new ArrayFilterEvent(ArrayFilterEvent::DETECT_LANGUAGES, $hook_data),
+			)->getArray();
+
+			foreach ($hook_data['detected'] as $language => $quality) {
+				$result[$language] = max($result[$language] ?? 0, $quality * (strlen($block) / strlen($searchtext)));
+			}
+		}
+
+		if (empty($result)) {
+			return ['un' => 1];
+		}
+
+		$result = self::compactLanguages($result);
+		if (empty($result)) {
+			return $default;
+		}
+
+		arsort($result);
+		return array_slice($result, 0, $count);
+	}
+
+	/**
+	 * Concert the language code in the detection result to ISO 639-1.
+	 * On duplicates the system uses the higher quality value.
+	 *
+	 * @param array $result
+	 * @return array
+	 */
+	private static function compactLanguages(array $result): array
+	{
+		$languages = [];
+		foreach ($result as $language => $quality) {
+			if ($quality == 0) {
+				continue;
+			}
+			$code = DI::l10n()->toISO6391($language);
+			if (empty($languages[$code]) || ($languages[$code] < $quality)) {
+				$languages[$code] = $quality;
+			}
+		}
+		return $languages;
+	}
+
+	/**
+	 * Split a string into different unicode blocks
+	 * Currently the text is split into the latin and the non latin part.
+	 *
+	 * @param string $body
+	 * @return array
+	 */
+	private static function splitByBlocks(string $body): array
+	{
+		if (!class_exists('IntlChar')) {
+			return [$body];
+		}
+
+		$blocks         = [];
+		$previous_block = 0;
+
+		for ($i = 0; $i < mb_strlen($body); $i++) {
+			$character = mb_substr($body, $i, 1);
+			$previous  = ($i > 0) ? mb_substr($body, $i - 1, 1) : '';
+			$next      = ($i < mb_strlen($body)) ? mb_substr($body, $i + 1, 1) : '';
+
+			if (!\IntlChar::isalpha($character)) {
+				if (($previous != '') && (\IntlChar::isalpha($previous))) {
+					$previous_block = self::getBlockCode($previous);
+				}
+
+				$block          = (($next != '') && \IntlChar::isalpha($next)) ? self::getBlockCode($next) : $previous_block;
+				$blocks[$block] = ($blocks[$block] ?? '') . $character;
+			} else {
+				$block          = self::getBlockCode($character);
+				$blocks[$block] = ($blocks[$block] ?? '') . $character;
+			}
+		}
+
+		foreach (array_keys($blocks) as $key) {
+			$blocks[$key] = trim($blocks[$key]);
+			if (empty($blocks[$key])) {
+				unset($blocks[$key]);
+			}
+		}
+
+		return array_values($blocks);
+	}
+
+	/**
+	 * returns the block code for the given character
+	 *
+	 * @param string $character
+	 * @return integer 0 = no alpha character (blank, signs, emojis, ...), 1 = latin character, 2 = character in every other language
+	 */
+	private static function getBlockCode(string $character): int
+	{
+		if (!\IntlChar::isalpha($character)) {
+			return 0;
+		}
+		return self::isLatin($character) ? 1 : 2;
+	}
+
+	/**
+	 * Checks if the given character is in one of the latin code blocks
+	 *
+	 * @param string $character
+	 * @return boolean
+	 */
+	private static function isLatin(string $character): bool
+	{
+		return in_array(\IntlChar::getBlockCode($character), [
+			\IntlChar::BLOCK_CODE_BASIC_LATIN, \IntlChar::BLOCK_CODE_LATIN_1_SUPPLEMENT,
+			\IntlChar::BLOCK_CODE_LATIN_EXTENDED_A, \IntlChar::BLOCK_CODE_LATIN_EXTENDED_B,
+			\IntlChar::BLOCK_CODE_LATIN_EXTENDED_C, \IntlChar::BLOCK_CODE_LATIN_EXTENDED_D,
+			\IntlChar::BLOCK_CODE_LATIN_EXTENDED_E, \IntlChar::BLOCK_CODE_LATIN_EXTENDED_ADDITIONAL
+		]);
+	}
+
+	public static function getLanguageMessage(array $item): string
+	{
+		$iso639 = new \Matriphe\ISO639\ISO639();
+
+		$used_languages = '';
+		foreach (json_decode($item['language'], true) as $language => $reliability) {
+			$code = DI::l10n()->toISO6391($language);
+
+			if ($code == L10n::UNDETERMINED_LANGUAGE) {
+				$native = $language = DI::l10n()->t('Undetermined');
+			} else {
+				$native   = $iso639->nativeByCode1($code);
+				$language = $iso639->languageByCode1($code);
+			}
+
+			if ($native != $language) {
+				$used_languages .= DI::l10n()->t('%s (%s - %s): %s', $native, $language, $code, number_format($reliability, 5)) . "\n";
+			} else {
+				$used_languages .= DI::l10n()->t('%s (%s): %s', $native, $code, number_format($reliability, 5)) . "\n";
+			}
+		}
+		$used_languages = DI::l10n()->t("Detected languages in this post:\n%s", $used_languages);
+		return $used_languages;
+	}
+
+	/**
 	 * Creates an unique guid out of a given uri.
 	 * This function is used for messages outside the fediverse (Connector posts, feeds, Mails, ...)
 	 * Posts that are created on this system are using System::createUUID.
