@@ -1957,6 +1957,7 @@ class Item
 			}
 		}
 
+		$result = self::compactLanguages($result);
 		if (empty($result)) {
 			return ['un' => 1];
 		}
