@@ -247,7 +247,6 @@ class Nav
 		}
 
 		if ($this->session->getLocalUserId()) {
-			$nav['channel'] = ['channel', $this->l10n->t('Channels'), '', $this->l10n->t('Current posts, filtered by several rules')];
 			$nav['calendar'] = ['calendar', $this->l10n->t('Calendar'), '', $this->l10n->t('Calendar')];
 		}
 
