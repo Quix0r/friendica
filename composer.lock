@@ -4216,11 +4216,6 @@
                     "dev-main": "3.7-dev"
                 }
             },
-            "autoload": {
-                "files": [
-                    "function.php"
-                ]
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
