@@ -695,10 +695,6 @@ return [
 		// Timeout in seconds for fetching the XRD links and other requests with an expected shorter timeout
 		'xrd_timeout' => 20,
 
-		// max_response_data_size (Integer)
-		// Maximum allowed response data size in Bytes, default is hard-coded value from code
-		'max_response_data_size' => 1000000,
-
 		// only_valid_email_addresses (Boolean)
 		// WARNING: You normally want to only accept valid email addreses. Under
 		// rare conditions this however can be a hinderence, e.g. on your LAN
