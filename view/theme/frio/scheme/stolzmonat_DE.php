@@ -5,8 +5,8 @@
  *
  * This is satire!
  */
-$nav_bg = "#708fa0";
-$nav_icon_color = "#fff";
+$nav_bg = "black";
+$nav_icon_color = "white";
 $background_color = "#ededed";
 $link_color = "#d4333d";
 $contentbg_transp = 100;

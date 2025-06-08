@@ -10,7 +10,7 @@
 #topbar-first,
 nav.navbar {
 	background-repeat: no-repeat !important;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),linear-gradient(rgba(73, 0, 11, 0.8), rgba(73, 0, 11, 0.8)),linear-gradient(rgba(143, 0, 22, 0.8), rgba(143, 0, 22, 0.8)),linear-gradient(rgba(238, 27, 36, 0.8), rgba(238, 27, 36, 0.8)),linear-gradient(rgba(255, 126, 38, 0.8), rgba(255, 126, 38, 0.8)),linear-gradient(rgba(255, 202, 12, 0.8), rgba(255, 202, 12, 0.8)),linear-gradient(rgba(253, 241, 0, 0.8), rgba(253, 241, 0, 0.8)) !important;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(rgba(73, 0, 11, 0.8), rgba(73, 0, 11, 0.8)), linear-gradient(rgba(143, 0, 22, 0.8), rgba(143, 0, 22, 0.8)), linear-gradient(rgba(238, 27, 36, 0.8), rgba(238, 27, 36, 0.8)), linear-gradient(rgba(255, 126, 38, 0.8), rgba(255, 126, 38, 0.8)), linear-gradient(rgba(255, 202, 12, 0.8), rgba(255, 202, 12, 0.8)), linear-gradient(rgba(253, 241, 0, 0.8), rgba(255, 255, 0, 0.8)) !important;
 	background-position: 0 0,0 8px,0 16px,0 24px,0 32px,0 40px,0 48px !important;
 	background-size: 100% 15% !important;
 }
