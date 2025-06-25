@@ -38,6 +38,7 @@ use Friendica\Core\Update;
 use Friendica\Core\Worker;
 use Friendica\Database\Database;
 use Friendica\Database\DBA;
+use Friendica\Database\DBStructure;
 use Friendica\DI;
 use Friendica\Model\Attach;
 use Friendica\Model\Contact;
