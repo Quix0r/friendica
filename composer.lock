@@ -4216,6 +4216,11 @@
                     "dev-main": "3.7-dev"
                 }
             },
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -9934,7 +9939,6 @@
     "prefer-lowest": false,
     "platform": {
         "php": "8.2.* || 8.3.* || 8.4.* || 8.5.*",
-        "ext-apcu": "*",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
