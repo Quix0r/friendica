@@ -2173,7 +2173,7 @@ class Processor
 		$searchtext = Engagement::getSearchTextForActivity($content, $authorid, $messageTags, $receivers);
 		$languages  = DI::contentItem()->getLanguageArray($content, 1, 0, $authorid);
 		$language   = !empty($languages) ? array_key_first($languages) : '';
-		return DI::userDefinedChannel()->match($searchtext, $language, $messageTags, 0);
+		return DI::userDefinedChannel()->match($searchtext, $language);
 	}
 
 	/**
