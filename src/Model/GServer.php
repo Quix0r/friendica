@@ -491,10 +491,10 @@ class GServer
 		}
 
 		if (Network::isUrlBlocked($url)) {
-			Logger::info('Server domain is blocked', ['url' => $url]);
+			DI::logger()->info('Server domain is blocked', ['url' => $url]);
 			return;
 		} elseif (Network::isUrlBlocked($nurl)) {
-			Logger::info('Server domain is blocked', ['nurl' => $nurl]);
+			DI::logger()->info('Server domain is blocked', ['nurl' => $nurl]);
 			return;
 		}
 
@@ -589,7 +589,7 @@ class GServer
 			}
 			return false;
 		} elseif (Network::isUrlBlocked($url)) {
-			Logger::info('Server domain is blocked', ['url' => $url]);
+			DI::logger()->info('Server domain is blocked', ['url' => $url]);
 			return false;
 		}
 
