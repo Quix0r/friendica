@@ -511,7 +511,7 @@ class System
 	 *
 	 * @return never
 	 */
-	public static function externalRedirect(string $url, int $code = 302, bool $includeProxyHeaders = false)
+	public static function externalRedirect(string $url, int $code = 302, bool $includeProxyHeaders = false): void
 	{
 		// Use a regex to detect the presence of a URI scheme, because PHP's
 		// parse_url() returns false/null for some valid custom-scheme URIs such

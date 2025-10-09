@@ -127,7 +127,7 @@ class Notification extends BaseModule
 		$this->baseUrl->redirect('notifications/system');
 	}
 
-	private function handleNotify(int $notifyId)
+	private function handleNotify(int $notifyId): void
 	{
 		$Notify = $this->notifyRepo->selectOneById($notifyId);
 		if ($Notify->uid !== DI::userSession()->getLocalUserId()) {
@@ -145,14 +145,14 @@ class Notification extends BaseModule
 			$this->notificationRepo->setAllSeenForUser($Notify->uid, ['target-uri-id' => $Notify->uriId]);
 		}
 
-		if ((string) $Notify->link) {
+		if (is_string($Notify->link) && $Notify->link != '') {
 			System::externalRedirect($Notify->link);
 		}
 
 		$this->baseUrl->redirect();
 	}
 
-	private function handleNotification(int $notificationId)
+	private function handleNotification(int $notificationId): void
 	{
 		$Notification = $this->notificationRepo->selectOneById($notificationId);
 		if ($Notification->uid !== DI::userSession()->getLocalUserId()) {
