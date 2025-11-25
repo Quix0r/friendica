@@ -599,7 +599,7 @@ class UserDefinedChannel extends BaseRepository
 	 * @param array|null $languages Optional explicit languages.
 	 * @return string Full-text language fragment or empty string.
 	 */
-	private function addLanguageSearchTerms(int $uid, array ?$languages = null): string
+	private function addLanguageSearchTerms(int $uid, ?array $languages = null): string
 	{
 		$langterms = '';
 		foreach ($languages ?: User::getWantedLanguages($uid) as $language) {
@@ -621,7 +621,7 @@ class UserDefinedChannel extends BaseRepository
 	 * @param array|null $languages Optional explicit languages.
 	 * @return array Modified condition array.
 	 */
-	public function addLanguageCondition(int $uid, array $condition, array ?$languages = null): array
+	public function addLanguageCondition(int $uid, array $condition, ?array $languages = null): array
 	{
 		$conditions = [];
 		foreach ($languages ?: User::getWantedLanguages($uid) as $language) {
