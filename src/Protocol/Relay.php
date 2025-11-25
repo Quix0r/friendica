@@ -23,6 +23,7 @@ use Friendica\Model\Search;
 use Friendica\Model\Tag;
 use Friendica\Model\User;
 use Friendica\Util\DateTimeFormat;
+use Friendica\Util\Network;
 use Friendica\Util\Strings;
 
 /**
@@ -212,6 +213,11 @@ class Relay
 	 */
 	public static function updateContact(array $gserver, array $fields = [])
 	{
+		if (Network::isUrlBlocked($gserver['url'])) {
+			DI::logger()->info('Domain is blocked', ['url' => $gserver['url']]);
+			return;
+		}
+
 		if (in_array($gserver['network'], [Protocol::ACTIVITYPUB, Protocol::DFRN])) {
 			$system = APContact::getByURL($gserver['url'] . '/friendica');
 			if (!empty($system['sharedinbox'])) {

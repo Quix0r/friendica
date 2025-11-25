@@ -17,6 +17,7 @@ use Friendica\Model\Contact;
 use Friendica\Model\GServer;
 use Friendica\Protocol\ATProtocol;
 use Friendica\Util\DateTimeFormat;
+use Friendica\Util\Network;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -189,6 +190,11 @@ class Actor
 	 */
 	public function getContactByDID(string $did, int $uid, int $contact_uid, bool $auto_update = false): array
 	{
+		if (Network::isUrlBlocked($did)) {
+			DI::logger()->info('Domain is blocked', ['url' => $did]);
+			return [];
+		}
+
 		$contact = Contact::selectFirst([], ['network' => Protocol::ATPROTO, 'nurl' => $did, 'uid' => [$contact_uid, $uid]], ['order' => ['uid' => true]]);
 
 		if (!empty($contact) && (!$auto_update || ($contact['updated'] > DateTimeFormat::utc('now -24 hours')))) {
