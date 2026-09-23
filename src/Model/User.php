@@ -683,8 +683,10 @@ class User
 		DBA::close($channels);
 
 		foreach (DI::userDefinedChannel()->select(["NOT `languages` IS NULL"]) as $channel) {
-			foreach ($channel->languages as $language) {
-				$languages[$language] = $language;
+			if (is_object($channel) && is_array($channel->languages)) {
+				foreach ($channel->languages as $language) {
+					$languages[$language] = $language;
+				}
 			}
 		}
 
