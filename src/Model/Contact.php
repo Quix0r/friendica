@@ -216,6 +216,11 @@ class Contact
 			$fields['gsid'] = GServer::getRealID($fields['baseurl'], true);
 		}
 
+		if (!empty($fields['baseurl']) && Network::isUrlBlocked($fields['baseurl'])) {
+			DI::logger()->warning('Contact is blocked by its base URL', ['fields' => $fields]);
+			return 0;
+		}
+
 		$fields['uri-id'] = ItemURI::getIdByURI($fields['url']);
 
 		if (empty($fields['created'])) {
