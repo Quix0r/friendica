@@ -21,7 +21,6 @@
 		"ext-gd": "*",
 		"ext-gmp": "*",
 		"ext-iconv": "*",
-		"ext-imagick": "*",
 		"ext-json": "*",
 		"ext-libxml": "*",
 		"ext-mbstring": "*",
